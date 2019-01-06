@@ -1,0 +1,30 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ Memory Layout of C or C++ code in execution
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	   ____________________
+    0xFFFF|____________________|  ->  command line arguments and environment variables
+	  |                    |  ->  stack
+	  |                    |
+	  |                    |
+	  |                    |
+	  |                    |
+	  |____________________|  ->  heap
+	  |   Uninitialized    |  ->  BSS(block started by symbol): contains all the global and static variables that are (implicitly) initialized 
+	  |_______Data_________|      to zero. i.e they don't have explicit initialization in source code.
+	  |    Initialized     |  ->  Data Segment: portion of virtual address space of a program which contains the global variables & static 
+	  |_______Data_________|      variables that are initialized by the programmer.
+	  |   Code Segment     |  ->  Code(ot text) Segment: contains executable instructions.
+    0x0000|____________________|
+
+Note:
+
+1) Code Segment resides in the lower address space in the memory, while Stack resides at the higher address space in the memory(memory means the 	memory assigned to the C code on execution).
+2) Data Segment is classified into 2 types:
+   a) Initialized read-only area.
+      example: char * c="hello";
+   b) Initialized read-write area.
+      example: char c[]="Hello";
+               int debug = 1;
+3) Stack address will start from higher address space to lower address space.               
+4) Heap address will start from lower address space to higher address space.
+5) There is no boundary between the stack memory and the heap memory.
