@@ -1,0 +1,69 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  How Compilation Takes Place in C/C++ code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            |
+            |       -> Source (.c or .cpp)           _________________ ______________ ____________________________
+ ___________\/___________                           |                 |              |                            |
+|      Pre Processing    |                          |     Process     |  Done By     |  Command Line Tool         |
+|________________________|                          |                 |              |  To Do The Process         |
+            |       -> (.i or .ii)                  |_________________|______________|____________________________|
+            |                                       | Pre Processing  | Preprocessor | cpp                        |
+ ___________\/___________                           |-----------------|--------------|----------------------------|        
+|      Compilation       |                          | Compilation     | Compiler     | gcc(for c) or g++(for c++) |  
+|________________________|                          |-----------------|--------------|----------------------------|
+            |       -> Assembly Code (.s)           | Assemble        | Assembler    | as                         |
+            |                                       |-----------------|--------------|----------------------------|
+ ___________\/___________                           | Linking         | Linker       | ld                         |
+|        Assemble        |                          |_________________|______________|____________________________| 
+|________________________|
+            |       -> Machine Code (.o or .obj)
+            |
+ ___________\/___________
+|         Linking        |<------- Static Library(.a)
+|________________________|
+            |       -> Executable machine code(For Windows,
+            |          .exe file gets generated).
+            \/
+
+Suppose we have a C++ file ex1.cpp, and have the following content:
+ex1.cpp
+~~~~~~~
+#include<iostream>
+int main()
+{
+	std::cout<<"HI"<<std::endl;
+	return 0;
+}
+
+Let us go through the compilation process of the above ex1.cpp file.
+
+1)  Preprocessor:
+    Input file:          ex1.cpp
+    Output file:         ex1.ii
+    Executable command:  cpp ex1.cpp > ex1.ii
+
+2)  Compiler:
+    Input file:          ex1.ii
+    Output file:         ex1.s
+    Executable command:  g++ -S ex1.ii
+
+3)  Assembler:
+    Input file:          ex1.s
+    Output file:         ex1.o
+    Executable command:  as -o ex1.o ex1.s
+
+4)  Linker:
+    Input file:          ex1.o
+    Output file:         ex1.exe
+    Executable command:  ld -o ex1.exe ex1.o ....other static libraries.....       // This command need to be explored more 
+
+You can use one single command to do all of these for you:
+#g++ -o ex1.exe ex1.cpp -save-temps
+
+NOTE:
+~~~~~
+1) After preprocessing the .c file by preprocessor, .i file is generated.
+2) After preprocessing the .cpp file by preprocessor, .ii file is generated.
+
+
