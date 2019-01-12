@@ -9,8 +9,8 @@
 	  |                    |
 	  |                    |
 	  |____________________|  ->  heap
-	  |   Uninitialized    |  ->  BSS(block started by symbol): contains all the global and static variables that are (implicitly) initialized 
-	  |_______Data_________|      to zero. i.e they don't have explicit initialization in source code.
+	  |   Uninitialized    |  ->  BSS(block started by symbol): contains all the global and static variables that are initialized 
+	  |_______Data_________|      to zero or don't have explicit initialization in source code.
 	  |    Initialized     |  ->  Data Segment: portion of virtual address space of a program which contains the global variables & static 
 	  |_______Data_________|      variables that are initialized by the programmer.
 	  |   Code Segment     |  ->  Code(ot text) Segment: contains executable instructions.
