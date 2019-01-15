@@ -1,0 +1,48 @@
+1) const class objects can only explicitly call 'const' member functions.
+                                                 ~~~~~~~~~~~~~~~~~~~~~~~~
+                                                     `------> A const MEMBER FUNCTION is a member function that guarentees it will not change any class variables or call any non-const member function.
+
+2) It is possible to overload a function in such a way to have a const and non-const version of the same function.
+
+#include <string>
+ 
+class Something
+{
+public:
+    std::string m_value;
+ 
+    const std::string& getValue() const { return m_value; }
+    std::string& getValue() { return m_value; }
+};
+
+The const version of the function will be called on any const objects, and the non-const version will be called on any non-const objects:
+
+	
+Something something;
+something.getValue(); // calls non-const getValue();
+ 
+const Something something2;
+something2.getValue(); // calls const getValue()
+
+3) 
+class A{
+  public:
+virtual void fun() const{std::cout<<"A::fun()"<<std::endl;}
+};
+class B : public A{
+  public:
+  void fun()  override{std::cout<<"B::fun()"<<std::endl;}
+};
+
+Error : cannot override (as the derived class func() is not const).
+
+Sollution:
+
+class A{
+  public:
+virtual void fun() const{std::cout<<"A::fun()"<<std::endl;}
+};
+class B : public A{
+  public:
+  void fun() const override{std::cout<<"B::fun()"<<std::endl;}
+};
