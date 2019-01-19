@@ -1,0 +1,6 @@
+1) “this” pointer is a hidden parameter implicitly added to any non-static member function.
+   It is the first parameter to the member function.
+2) for a non-const member function, "this" pointer has following definition:
+   A * const this
+3) for a const member function, "this" pointer has following definition:
+   const A * const this
