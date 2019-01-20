@@ -4,3 +4,35 @@
    A * const this
 3) for a const member function, "this" pointer has following definition:
    const A * const this
+
+Example:
+
+class A
+{
+	int m_var;
+	const int m_cvar;
+public:
+	A():m_cvar(11){}
+	void func()
+	{
+		m_var = 10;
+		cout<<m_var;
+	}
+	void func() const
+	{
+		cout<<m_cvar;
+	}
+};
+
+The compiler will change the above two class member functions, func(), as follows:
+
+void func(A * const this)
+{
+	this->m_var = 10;
+	cout<<this->m_var;
+}
+void func(const A * const this) const
+{
+	cout<<this->m_cvar;
+}
+
