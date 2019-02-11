@@ -28,3 +28,7 @@ Note:
 3) Stack address will start from higher address space to lower address space.               
 4) Heap address will start from lower address space to higher address space.
 5) There is no boundary between the stack memory and the heap memory.
+6) Every segment has a write protected region where all the constants are stored.
+   "const" is just a data QUALIFIER, which means that first the compiler has to decide which segment the variable has to be stored and then if the       variable is a const, then it qualifies to be stored in the write protected region of that particular segment.
+   For Example:
+   If I have a const int which is local variable, then it is stored in the write protected region of stack segment. and if I have a global that is       initialised const var(not initialized to zero), then it is stored in the write protected region of data segment and if I have an uninitialised        const var, then it is stored in the write protected region of BSS.
