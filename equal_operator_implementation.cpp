@@ -18,7 +18,8 @@ X& X::operator=(const X& rhs)
 	m_pchar = new(std::nothrow) char[rhs.length];
 	if(m_pchar != nullptr)
 	{
-		delete var;
+		if(var != nullptr)
+			delete []var;
 		length = rhs.length;
 		for(int i=0;i<=length; i++)
 		{
