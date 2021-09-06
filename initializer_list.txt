@@ -1,0 +1,65 @@
+Initializer list 
+~~~~~~~~~~~~~~~~
+If we want to initialize a class object variable, it can be done by two ways
+1) by initializing it in the constructor of a class
+2) by using initializer list.
+	class A
+	{
+		int a;
+		char c;
+	public:
+		A():a{10},c{'A'}  //this is the way to initialize a class variable by initializer list 
+		{}
+	};
+NOTE: The order of initialization of class variables (using initializer list) should be same as the order of class variables declaration, otherwise compiler warning will be shown.
+
+Use cases of Initializer List
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1) to initialize constant variables.
+2) to initialize reference variables.
+3) when the constructor paramer name is same as the class variable name.
+4) User defined data type variables should be initialized using initializer list for performance purpose.
+5) Initializing the member objects which don't have default constructor.
+6) Initializing base class members.
+
+
+1) 
+class A
+{
+	const int a;
+public:
+	A():a{10}{}
+};
+
+2)
+class A
+{
+	int &a;
+public:
+	A(int b):a{b}{}
+};
+
+3)
+class A
+{
+	int a;
+public:
+	A(int a):a{a}{}
+};
+
+4, 5 & 6)
+class A
+{
+	const int a;
+public:
+	A(int x):a{x}{}
+};
+class B
+{
+	A var;
+public:
+	B():var{20}{}
+};
+
+
