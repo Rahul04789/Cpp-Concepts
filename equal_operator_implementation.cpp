@@ -15,7 +15,7 @@ X& X::operator=(const X& rhs)
 	int l = length;
 	m_pchar = nullptr;
 	length = 0;
-	m_pchar = new(std::nothrow) char[rhs.length];
+	m_pchar = new(std::nothrow) char[rhs.length+1];
 	if(m_pchar != nullptr)
 	{
 		if(var != nullptr)
@@ -25,6 +25,7 @@ X& X::operator=(const X& rhs)
 		{
 			m_pchar[i] = rhs.m_pchar[i];
 		}
+		m_pchar[length+1] = '\0';
 	}
 	else
 	{
