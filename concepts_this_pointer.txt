@@ -4,8 +4,8 @@
    A * const this
 3) for a const member function, "this" pointer has following definition:
    const A * const this
-
-Example:
+4) An object's this pointer isn't part of the object itself. It's not reflected in the result of a sizeof statement on the object. 
+5) When a nonstatic member function is called for an object, the compiler passes the object's address to the function as a hidden argument.
 
 class A
 {
@@ -35,4 +35,8 @@ void func(const A * const this) const
 {
 	cout<<this->m_cvar;
 }
+
+A var1;
+var1.func(); // the compiler will change this statement to:  func(&var1);
+
 
