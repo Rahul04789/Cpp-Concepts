@@ -16,7 +16,7 @@ MyString& MyString::operator= (const MyString& rhs)
     char* pc=m_string;
     m_string=nullptr;
     m_length=rhs.m_length;
-    m_string=new (std::no_throw) char[m_length];
+    m_string=new (std::no_throw) char[m_length+1];
     if(m_string != nullptr)
     {
         memcpy(m_string, rhs.m_string, m_length+1);
@@ -35,7 +35,7 @@ MyString::MyString(const MyString& rhs)
 {
     m_string=nullptr;
     m_length=rhs.m_length;
-    m_string=new (std::no_throw) char[m_length];
+    m_string=new (std::no_throw) char[m_length+1];
     if(m_string != nullptr)
     {
         memcpy(m_string, rhs.m_string, m_length+1);
