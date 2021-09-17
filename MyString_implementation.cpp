@@ -7,6 +7,7 @@ public:
     MyString(const char * rhs):m_length(0),m_string(rhs){std::string s(m_string);m_length=s.size();}
     MyString(const MyString& rhs);
     MyString& operator= (const MyString& rhs);
+    ~MyString();
 };
 MyString& MyString::operator= (const MyString& rhs)
 {
@@ -44,6 +45,14 @@ MyString::MyString(const MyString& rhs)
         {
             memcpy(m_string, rhs.m_string, length+1);
         }
+    }
+}
+
+MyString::~MyString()
+{
+    if(m_string!=nullptr)
+    {
+        delete m_string;
     }
 }
 
