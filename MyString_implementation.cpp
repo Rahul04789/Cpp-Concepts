@@ -4,46 +4,46 @@ class MyString
     char * m_string;
 public:
     MyString():m_length(0),m_string(nullptr){}
-    MyString(const char * rhs):m_length(0),m_string(rhs){}
+    MyString(const char * rhs):m_length(0),m_string(rhs){std::string s(m_string);m_length=s.size();}
     MyString(const MyString& rhs);
     MyString& operator= (const MyString& rhs);
 };
 MyString& MyString::operator= (const MyString& rhs)
 {
-    if(&rhs == this)
+     if(&rhs == this)
+            return *this;
+        char *temp = m_string;
+        int ltemp  = m_length;
+        m_string=nullptr;
+        if(rhs.m_string!=nullptr)
+        {
+            m_string = new(std::nothrow) char[m_length+1];
+            if(m_string!=nullptr)
+            {
+                memcpy(m_string, rhs.m_string, m_length+1);
+                m_length=rhs.m_length;
+                delete temp;
+            }
+            else
+            {
+                m_string=temp;
+                m_length=ltemp;
+            }
+        }
         return *this;
-    int l=m_length;
-    char* pc=m_string;
-    m_string=nullptr;
-    m_length=rhs.m_length;
-    m_string=new (std::no_throw) char[m_length+1];
-    if(m_string != nullptr)
-    {
-        memcpy(m_string, rhs.m_string, m_length+1);
-        if(pc!= nullptr)
-            delete []pc;
-    }
-    else
-    {
-        m_length = l;
-        m_string = pc;
-    }
-    return *this;
 }
 
 MyString::MyString(const MyString& rhs)
 {
-    m_string=nullptr;
-    m_length=rhs.m_length;
-    m_string=new (std::no_throw) char[m_length+1];
-    if(m_string != nullptr)
+    m_length = rhs.m_length;
+    m_string = nullptr;
+    if(rhs.m_string!=nullptr)
     {
-        memcpy(m_string, rhs.m_string, m_length+1);
-    }
-    else
-    {
-        m_length = 0;
-        m_string = nullptr;
+        m_string=new (std::no_throw) char[m_length+1];
+        if(m_string != nullptr)
+        {
+            memcpy(m_string, rhs.m_string, length+1);
+        }
     }
 }
 
