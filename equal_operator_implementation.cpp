@@ -9,28 +9,26 @@ public:
 };
 X& X::operator=(const X& rhs)
 {
-	if(this == &rhs)
-		return (*this);
-	char * var = m_pchar;
-	int l = length;
-	m_pchar = nullptr;
-	length = 0;
-	m_pchar = new(std::nothrow) char[rhs.length+1];
-	if(m_pchar != nullptr)
-	{
-		if(var != nullptr)
-			delete []var;
-		length = rhs.length;
-		for(int i=0;i<=length; i++)
-		{
-			m_pchar[i] = rhs.m_pchar[i];
-		}
-		m_pchar[length+1] = '\0';
-	}
-	else
-	{
-		m_pchar = var;
-		length = l;
-	}
-	return (*this);
+	if(&rhs == this)
+            return *this;
+        char *temp = m_pchar;
+        int ltemp  = length;
+        m_pchar=nullptr;
+        if(rhs.m_pchar!=nullptr)
+        {
+            m_pchar = new(std::nothrow) char[length+1];
+            if(m_pchar!=nullptr)
+            {
+                memcpy(m_pchar, rhs.m_pchar, length+1);
+                length=rhs.length;
+                if(temp != nullptr)
+                    delete temp;
+            }
+            else
+            {
+                m_pchar=temp;
+                length=ltemp;
+            }
+        }
+        return *this;
 }
