@@ -23,7 +23,8 @@ MyString& MyString::operator= (const MyString& rhs)
             {
                 memcpy(m_string, rhs.m_string, m_length+1);
                 m_length=rhs.m_length;
-                delete temp;
+                if(temp != nullptr)
+                    delete temp;
             }
             else
             {
