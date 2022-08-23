@@ -1,9 +1,11 @@
+
 int (*fptr_Shape[2])(int);
 int (*fptr_Circle[2])(int);
 int (*fptr_Rectangle[2])(int);
 struct Shape
 {
     void * vptr;//Area and 
+    void * obj;
 };
 struct Circle
 {
@@ -15,42 +17,42 @@ struct Rectangle
     int b;
 };
 
-int Circle_Area(Circle * const this)
+int Circle_Area(struct Circle * const this)
 {
     return (3.14*this->r * this->r);
 }
-int Rectangle_Area(Rectangle * const this)
+int Rectangle_Area(struct Rectangle * const this)
 {
     return (this->l * this->b);
-})
-int Area(void * sptr)
+}
+int Area(struct Shape * sptr)
 {
-    if((Shape*)sptr->vptr  == &fptr_Circle[0])
+    if(sptr->vptr  == &fptr_Circle[0])
     {
-        Circle_Area(sptr);
+        Circle_Area((struct Circle*)(sptr->obj));
     }
-    else if((Shape*)sptr->vptr  == &fptr_Rectangle[0])
+    else if(sptr->vptr  == &fptr_Rectangle[0])
     {
-        Rectangle_Area(sptr);
+        Rectangle_Area((struct Rectangle*)(sptr->obj));
     }
 }
-int Circle_Perimeter(Circle * const this)
+int Circle_Perimeter(struct Circle * const this)
 {
     return (2*3.14*this->r) ;
 }
-int Rectangle_Perimeter(Rectangle * const this)
+int Rectangle_Perimeter(struct Rectangle * const this)
 {
     return (2*(this->l + this->b)) ;
 }
-int Perimeter(void * sptr)
+int Perimeter(struct Shape * sptr)
 {
-    if((Shape*)sptr->vptr  == &fptr_Circle[0])
+    if(sptr->vptr  == &fptr_Circle[0])
     {
-        Circle_Perimeter(sptr);
+        Circle_Perimeter((struct Circle*)(sptr->obj));
     }
-    else if((Shape*)sptr->vptr  == &fptr_Rectangle[0])
+    else if(sptr->vptr  == &fptr_Rectangle[0])
     {
-        Rectangle_Perimeter(sptr);
+        Rectangle_Perimeter((struct Rectangle*)(sptr->obj));
     }
 }
 void InitializeVTable()
@@ -64,8 +66,10 @@ void InitializeVTable()
 int main()
 {
     InitializeVTable();
-    Circle c;
-    c.vprt=&fptr_Circle[0];
-    Area(&c);
+    struct Shape s;
+    struct Circle c;c.r=10;
+    s.vptr=&fptr_Circle[0];
+    s.obj=(void*)&c;
+    Area(&s);
     return 0;
 }
