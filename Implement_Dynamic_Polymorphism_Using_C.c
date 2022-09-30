@@ -1,7 +1,7 @@
 struct Circle;
 struct Rectangle;
 
-int (*fptr_Shape[2])(int);
+int (*fptr_Shape[2])(struct Shape *);
 int (*fptr_Circle[2])(struct Circle *);
 int (*fptr_Rectangle[2])(struct Rectangle *);
 struct Shape
