@@ -15,7 +15,6 @@ MyString& MyString::operator= (const MyString& rhs)
             return *this;
         char *temp = m_string;
         int ltemp  = m_length;
-        m_string=nullptr;
         if(rhs.m_string!=nullptr)
         {
             m_string = new(std::nothrow) char[m_length+1];
